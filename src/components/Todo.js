@@ -1,4 +1,5 @@
 import React from "react";
+import Menu from "./Menu";
 import {
   StyleSheet,
   Text,
@@ -70,83 +71,86 @@ export default class Todo extends React.Component {
   static navigationOptions = {
     header: null
   };
+
   render() {
     return (
-      //container View
-      <View style={styles.container}>
-        {/* Header View */}
-        <View style={styles.headerContainer}>
-          <TouchableNativeFeedback
-            onPress={() => {
-              this.props.navigation.navigate("Menu");
-            }}
-          >
-            <View>
-              <Ionicons name="md-menu" size={32} color="white" />
-            </View>
-          </TouchableNativeFeedback>
-          <Text style={styles.headerText}> Todo App </Text>
-          <AntDesign name="setting" size={32} color="white" />
-        </View>
-
-        {/* Body View */}
-        <View style={styles.body}>
-          {/* Input and Button View */}
-          {/* TextInput */}
-          <View style={styles.textAndButtonView}>
-            <TextInput
-              style={styles.textInput}
-              value={this.state.newTodo}
-              underlineColorAndroid="transparent"
-              placeholder="New Todo"
-              placeholderTextColor="gray"
-              autoCapitalize="none"
-              onChangeText={this.handleChangeText}
-            />
-
-            {/* Button */}
-            <TouchableOpacity onPress={this.addTodo} style={styles.addButton}>
-              <Text style={styles.buttonText}>add todo</Text>
-            </TouchableOpacity>
+      <DrawerLayoutAndroid>
+        //container View
+        <View style={styles.container}>
+          {/* Header View */}
+          <View style={styles.headerContainer}>
+            <TouchableNativeFeedback
+              onPress={() => {
+                this.props.navigation.navigate("Menu");
+              }}
+            >
+              <View>
+                <Ionicons name="md-menu" size={32} color="white" />
+              </View>
+            </TouchableNativeFeedback>
+            <Text style={styles.headerText}> Todo App </Text>
+            <AntDesign name="setting" size={32} color="white" />
           </View>
 
-          {/* Todo Items View */}
-          <FlatList
-            data={this.state.todos}
-            renderItem={({ item }) => (
-              <View style={styles.renderItemView}>
-                <Text
-                  onPress={e => {
-                    this.alert(item);
-                  }}
-                  style={styles.todoItemText}
-                >
-                  {item}
-                </Text>
-                <TouchableOpacity
-                  onPress={e => {
-                    this.handleDeleteOneItem(item);
-                  }}
-                >
-                  <Text style={styles.deleteItemText}>X</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-            keyExtractor={item => makeid(5)}
-          />
+          {/* Body View */}
+          <View style={styles.body}>
+            {/* Input and Button View */}
+            {/* TextInput */}
+            <View style={styles.textAndButtonView}>
+              <TextInput
+                style={styles.textInput}
+                value={this.state.newTodo}
+                underlineColorAndroid="transparent"
+                placeholder="New Todo"
+                placeholderTextColor="gray"
+                autoCapitalize="none"
+                onChangeText={this.handleChangeText}
+              />
 
-          {/* Remove all button */}
-          <TouchableHighlight
-            style={styles.removeButton}
-            onPress={this.handleDeleteAll}
-          >
-            <Text style={styles.buttonText}> Remove all</Text>
-          </TouchableHighlight>
+              {/* Button */}
+              <TouchableOpacity onPress={this.addTodo} style={styles.addButton}>
+                <Text style={styles.buttonText}>add todo</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Todo Items View */}
+            <FlatList
+              data={this.state.todos}
+              renderItem={({ item }) => (
+                <View style={styles.renderItemView}>
+                  <Text
+                    onPress={e => {
+                      this.alert(item);
+                    }}
+                    style={styles.todoItemText}
+                  >
+                    {item}
+                  </Text>
+                  <TouchableOpacity
+                    onPress={e => {
+                      this.handleDeleteOneItem(item);
+                    }}
+                  >
+                    <Text style={styles.deleteItemText}>X</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+              keyExtractor={item => makeid(5)}
+            />
+
+            {/* Remove all button */}
+            <TouchableHighlight
+              style={styles.removeButton}
+              onPress={this.handleDeleteAll}
+            >
+              <Text style={styles.buttonText}> Remove all</Text>
+            </TouchableHighlight>
+          </View>
+
+          {/* Footer View */}
+          <View style={{ flex: 1, backgroundColor: "#222e50" }} />
         </View>
-
-        {/* Footer View */}
-        <View style={{ flex: 1, backgroundColor: "#222e50" }} />
-      </View>
+      </DrawerLayoutAndroid>
     );
   }
 }
