@@ -1,6 +1,6 @@
 // /components/Menu.js
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, AsyncStorage } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
@@ -12,6 +12,12 @@ export default class Menu extends Component {
   render() {
     return (
       <View style={styles.Menucontainer}>
+        <View>
+          <Image
+            style={styles.profileImage}
+            source={require("./assets/pics.jpeg")}
+          />
+        </View>
         <View style={styles.board}>
           <View style={styles.eachIcon}>
             <AntDesign
@@ -25,7 +31,7 @@ export default class Menu extends Component {
               style={styles.boardText}
               onPress={() => {
                 this.props.navigation.navigate("Todo");
-                this.props.closeDrawer();
+                // this.props.closeDrawer();
               }}
             >
               Todo App
@@ -41,7 +47,7 @@ export default class Menu extends Component {
             <Text
               onPress={() => {
                 this.props.navigation.navigate("Likes");
-                this.props.closeDrawer();
+                // this.props.closeDrawer();
               }}
               style={styles.boardText}
             >
@@ -59,7 +65,7 @@ export default class Menu extends Component {
             <Text
               onPress={() => {
                 this.props.navigation.navigate("Touchables");
-                this.props.closeDrawer();
+                // this.props.closeDrawer();
               }}
               style={styles.boardText}
             >
@@ -74,8 +80,8 @@ export default class Menu extends Component {
 
 const styles = StyleSheet.create({
   Menucontainer: {
-    flex: 1,
-    marginTop: 50
+    flex: 1
+    // marginTop: 50
   },
 
   board: {
@@ -85,8 +91,8 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderStyle: "solid",
     height: 450,
-    width: 350,
-    marginTop: -20
+    width: 350
+    // marginTop: -20
   },
 
   boardText: {
@@ -105,5 +111,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "lightgrey",
     borderBottomWidth: 1,
     paddingBottom: 7
+  },
+
+  profileImage: {
+    height: 200,
+    width: 200
   }
 });

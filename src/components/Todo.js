@@ -31,8 +31,32 @@ const makeid = length => {
 export default class Todo extends React.Component {
   state = {
     newTodo: "",
-    todos: ["Study", "code", "eat"]
+    todos: []
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.todos.length !== this.state.todos.length) {
+      const jsonState = JSON.stringify(this.state.todos);
+      //saving starts here
+      AsyncStorage.setItem("todos", jsonState)
+        .then(value => value)
+        .catch(err => console.warn(err));
+    }
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem("todos")
+      .then(value => {
+        if (value !== null) {
+          // if value is not null or if Asynctorage is not empty.
+          let valueToArray = JSON.parse(value);
+          this.setState({
+            todos: valueToArray
+          });
+        }
+      })
+      .catch(err => console.warn(err));
+  }
 
   addTodo = () => {
     if (!this.state.newTodo) {
