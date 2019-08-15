@@ -1,5 +1,4 @@
 import React from "react";
-import Menu from "./Menu";
 import {
   StyleSheet,
   Text,
@@ -17,6 +16,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import Foundation from "react-native-vector-icons/Foundation";
 import uuid from "uuid";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Menu from "./Menu";
 
 const myIcon = <Icon name="rocket" size={30} color="#900" />;
 
@@ -71,11 +71,21 @@ export default class Todo extends React.Component {
   static navigationOptions = {
     header: null
   };
-
   render() {
     return (
-      <DrawerLayoutAndroid>
-        //container View
+      <DrawerLayoutAndroid
+        drawerWidth={300}
+        drawerPosition={DrawerLayoutAndroid.positions.Left}
+        renderNavigationView={() => (
+          <Menu
+            navigation={this.props.navigation}
+            closeDrawer={this.closeDrawer}
+          />
+        )}
+        ref={_drawer => {
+          this.drawer = _drawer;
+        }}
+      >
         <View style={styles.container}>
           {/* Header View */}
           <View style={styles.headerContainer}>
