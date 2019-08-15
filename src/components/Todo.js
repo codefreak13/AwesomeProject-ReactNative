@@ -5,7 +5,6 @@ import {
   View,
   FlatList,
   TextInput,
-  Button,
   TouchableOpacity,
   TouchableHighlight,
   DrawerLayoutAndroid,
@@ -13,8 +12,6 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import Foundation from "react-native-vector-icons/Foundation";
-import uuid from "uuid";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Menu from "./Menu";
 
@@ -68,6 +65,15 @@ export default class Todo extends React.Component {
       alert(item);
     };
   };
+
+  openDrawer = () => {
+    this.drawer.openDrawer();
+  };
+
+  closeDrawer = () => {
+    this.drawer.closeDrawer();
+  };
+
   static navigationOptions = {
     header: null
   };
@@ -89,11 +95,7 @@ export default class Todo extends React.Component {
         <View style={styles.container}>
           {/* Header View */}
           <View style={styles.headerContainer}>
-            <TouchableNativeFeedback
-              onPress={() => {
-                this.props.navigation.navigate("Menu");
-              }}
-            >
+            <TouchableNativeFeedback onPress={(onPress = this.openDrawer)}>
               <View>
                 <Ionicons name="md-menu" size={32} color="white" />
               </View>

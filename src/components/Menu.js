@@ -1,6 +1,6 @@
 // /components/Menu.js
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
@@ -25,6 +25,7 @@ export default class Menu extends Component {
               style={styles.boardText}
               onPress={() => {
                 this.props.navigation.navigate("Todo");
+                this.props.closeDrawer();
               }}
             >
               Todo App
@@ -40,6 +41,7 @@ export default class Menu extends Component {
             <Text
               onPress={() => {
                 this.props.navigation.navigate("Likes");
+                this.props.closeDrawer();
               }}
               style={styles.boardText}
             >
@@ -57,6 +59,7 @@ export default class Menu extends Component {
             <Text
               onPress={() => {
                 this.props.navigation.navigate("Touchables");
+                this.props.closeDrawer();
               }}
               style={styles.boardText}
             >
