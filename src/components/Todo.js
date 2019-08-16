@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   DrawerLayoutAndroid,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Menu from "./Menu";
+import AsyncStorage from '@react-native-community/async-storage';
 
 const myIcon = <Icon name="rocket" size={30} color="#900" />;
 
@@ -34,28 +35,57 @@ export default class Todo extends React.Component {
     todos: []
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.todos.length !== this.state.todos.length) {
+  //     const jsonState = JSON.stringify(this.state.todos);
+  //     //saving starts here
+  //     AsyncStorage.setItem("todos", jsonState)
+  //       .then(value => value)
+  //       .catch(err => console.warn(err));
+  //   }
+  // }
+
+  //componentDidUpdate with try/catch
+  async componentDidUpdate(prevProps, prevState) {
     if (prevState.todos.length !== this.state.todos.length) {
       const jsonState = JSON.stringify(this.state.todos);
-      //saving starts here
-      AsyncStorage.setItem("todos", jsonState)
-        .then(value => value)
-        .catch(err => console.warn(err));
+      try {
+        //saving starts here
+        const value = await AsyncStorage.setItem("todos", jsonState);
+      } catch (err) {
+        console.warn(err);
+      }
     }
   }
 
-  componentDidMount() {
-    AsyncStorage.getItem("todos")
-      .then(value => {
-        if (value !== null) {
-          // if value is not null or if Asynctorage is not empty.
-          let valueToArray = JSON.parse(value);
-          this.setState({
-            todos: valueToArray
-          });
-        }
-      })
-      .catch(err => console.warn(err));
+  // componentDidMount() {
+  //   AsyncStorage.getItem("todos")
+  //     .then(value => {
+  //       if (value !== null) {
+  //         // if value is not null or if Asynctorage is not empty.
+  //         let valueToArray = JSON.parse(value);
+  //         this.setState({
+  //           todos: valueToArray
+  //         });
+  //       }
+  //     })
+  //     .catch(err => console.warn(err));
+  // }
+
+  //componentDidMount with try/catch
+ async componentDidMount() {
+    try {
+      const value = await AsyncStorage.getItem("todos");
+      if (value !== null) {
+        // if value is not null or if Asynctorage is not empty.
+        let valueToArray = JSON.parse(value);
+        this.setState({
+          todos: valueToArray
+        });
+      }
+    } catch (e) {
+      console.warn(err);
+    }
   }
 
   addTodo = () => {
