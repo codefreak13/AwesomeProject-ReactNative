@@ -16,6 +16,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Menu from "./Menu";
 import AsyncStorage from '@react-native-community/async-storage';
+import Entypo from "react-native-vector-icons/Entypo";
 
 const myIcon = <Icon name="rocket" size={30} color="#900" />;
 
@@ -186,7 +187,7 @@ export default class Todo extends React.Component {
 
               {/* Button */}
               <TouchableOpacity onPress={this.addTodo} style={styles.addButton}>
-                <Text style={styles.buttonText}>add todo</Text>
+              <Entypo name="add-to-list" size={20} color="white" />
               </TouchableOpacity>
             </View>
 
@@ -218,11 +219,11 @@ export default class Todo extends React.Component {
             />
 
             {/* Remove all button */}
-            <TouchableHighlight
+             <TouchableHighlight
               style={styles.removeButton}
               onPress={this.handleDeleteAll}
             >
-              <Text style={styles.buttonText}> Remove all</Text>
+              <Text style={styles.removeButtonText}> Remove all</Text>
             </TouchableHighlight>
           </View>
 
@@ -242,14 +243,15 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20
   },
-  headerContainer: {
+headerContainer: {
     flex: 1,
-    paddingRight: 5,
-    paddingLeft: 5,
+    paddingBottom: 4,
+    paddingRight: 10,
+    paddingLeft: 10,
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     backgroundColor: "#222e50",
-    alignItems: "flex-end",
+    alignItems: "center",
     borderBottomColor: "#ffffff",
     borderBottomWidth: 0.5
   },
@@ -293,14 +295,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between"
   },
-
-  removeButton: {
-    backgroundColor: "#222e50",
+ removeButton: {
+    backgroundColor: "#ffffff",
     width: "100%",
     padding: 10,
     marginTop: 20,
     borderRadius: 5,
-    alignItems: "center"
+    alignItems: "center",
+    borderRadius: 5,
+    borderWidth: 0.5,
+    borderColor: "#222e50"
+  },
+  removeButtonText: {
+    color: "#222e50",
+    fontSize: 15
   },
   renderItemView: {
     flexDirection: "row",
