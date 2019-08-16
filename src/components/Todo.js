@@ -9,6 +9,7 @@ import {
   TouchableHighlight,
   DrawerLayoutAndroid,
   TouchableNativeFeedback,
+  ActivityIndicator
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -32,7 +33,8 @@ const makeid = length => {
 export default class Todo extends React.Component {
   state = {
     newTodo: "",
-    todos: []
+    todos: [],
+    isAnimating: false
   };
 
   // componentDidUpdate(prevProps, prevState) {
@@ -74,18 +76,27 @@ export default class Todo extends React.Component {
 
   //componentDidMount with try/catch
  async componentDidMount() {
-    try {
-      const value = await AsyncStorage.getItem("todos");
-      if (value !== null) {
-        // if value is not null or if Asynctorage is not empty.
-        let valueToArray = JSON.parse(value);
-        this.setState({
-          todos: valueToArray
-        });
+    //  setState here
+    this.setState({
+      isAnimating: true
+    });
+    //setTimeout here
+    setTimeout(async () => {
+      try {
+        const value = await AsyncStorage.getItem("todos");
+        if (value !== null) {
+          // if value is not null or if Asynctorage is not empty.
+          let valueToArray = JSON.parse(value);
+          this.setState({
+            todos: valueToArray,
+             isAnimating: false
+          });
+        }
+      } 
+      catch (e) {
+        console.warn(err);
       }
-    } catch (e) {
-      console.warn(err);
-    }
+    }, 5000);
   }
 
   addTodo = () => {
@@ -179,6 +190,8 @@ export default class Todo extends React.Component {
               </TouchableOpacity>
             </View>
 
+            { this.state.isAnimating &&  <ActivityIndicator size="large" color="#222e50" />  }
+            
             {/* Todo Items View */}
             <FlatList
               data={this.state.todos}
