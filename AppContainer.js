@@ -1,3 +1,4 @@
+//AppContainer.js
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import Likes from "./src/components/Likes";
 import Todo from "./src/components/Todo";
@@ -13,16 +14,13 @@ const AppNavigator = createStackNavigator(
     FlatListExample,
     Menu
   },
-
   {
-    initialRouteName: "Menu",
+    initialRouteName: "Todo",
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: "#222e50"
       },
-
       headerTintColor: "#fff",
-
       headerTitleStyle: {
         fontWeight: "bold"
       }

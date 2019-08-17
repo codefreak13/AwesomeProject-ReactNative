@@ -1,3 +1,4 @@
+//Todo.js
 import React from "react";
 import {
   StyleSheet,
@@ -13,12 +14,9 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import Icon from "react-native-vector-icons/FontAwesome";
-import Menu from "./Menu";
-import AsyncStorage from '@react-native-community/async-storage';
 import Entypo from "react-native-vector-icons/Entypo";
-
-const myIcon = <Icon name="rocket" size={30} color="#900" />;
+import Menu from "./Menu";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const makeid = length => {
   var result = "";
@@ -38,45 +36,7 @@ export default class Todo extends React.Component {
     isAnimating: false
   };
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.todos.length !== this.state.todos.length) {
-  //     const jsonState = JSON.stringify(this.state.todos);
-  //     //saving starts here
-  //     AsyncStorage.setItem("todos", jsonState)
-  //       .then(value => value)
-  //       .catch(err => console.warn(err));
-  //   }
-  // }
-
-  //componentDidUpdate with try/catch
-  async componentDidUpdate(prevProps, prevState) {
-    if (prevState.todos.length !== this.state.todos.length) {
-      const jsonState = JSON.stringify(this.state.todos);
-      try {
-        //saving starts here
-        const value = await AsyncStorage.setItem("todos", jsonState);
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-  }
-
-  // componentDidMount() {
-  //   AsyncStorage.getItem("todos")
-  //     .then(value => {
-  //       if (value !== null) {
-  //         // if value is not null or if Asynctorage is not empty.
-  //         let valueToArray = JSON.parse(value);
-  //         this.setState({
-  //           todos: valueToArray
-  //         });
-  //       }
-  //     })
-  //     .catch(err => console.warn(err));
-  // }
-
-  //componentDidMount with try/catch
- async componentDidMount() {
+  async componentDidMount() {
     //  setState here
     this.setState({
       isAnimating: true
@@ -90,14 +50,25 @@ export default class Todo extends React.Component {
           let valueToArray = JSON.parse(value);
           this.setState({
             todos: valueToArray,
-             isAnimating: false
+            isAnimating: false
           });
         }
-      } 
-      catch (e) {
+      } catch (e) {
         console.warn(err);
       }
     }, 5000);
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.todos.length !== this.state.todos.length) {
+      const jsonState = JSON.stringify(this.state.todos);
+      try {
+        //saving starts here
+        const value = await AsyncStorage.setItem("todos", jsonState);
+      } catch (err) {
+        console.warn(err);
+      }
+    }
   }
 
   addTodo = () => {
@@ -126,10 +97,10 @@ export default class Todo extends React.Component {
     this.setState(prevState => ({
       todos: prevState.todos.filter(todoItem => todoItem !== itemToBeRemoved)
     }));
+  };
 
-    alert = item => {
-      alert(item);
-    };
+  alert = item => {
+    alert(item);
   };
 
   openDrawer = () => {
@@ -145,6 +116,7 @@ export default class Todo extends React.Component {
   };
   render() {
     return (
+      //container View
       <DrawerLayoutAndroid
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
@@ -187,12 +159,15 @@ export default class Todo extends React.Component {
 
               {/* Button */}
               <TouchableOpacity onPress={this.addTodo} style={styles.addButton}>
-              <Entypo name="add-to-list" size={20} color="white" />
+                <Entypo name="add-to-list" size={20} color="white" />
               </TouchableOpacity>
             </View>
 
-            { this.state.isAnimating &&  <ActivityIndicator size="large" color="#222e50" />  }
-            
+            {/* Activity indicator */}
+            {this.state.isAnimating && (
+              <ActivityIndicator size="large" color="#222e50" />
+            )}
+
             {/* Todo Items View */}
             <FlatList
               data={this.state.todos}
@@ -219,7 +194,7 @@ export default class Todo extends React.Component {
             />
 
             {/* Remove all button */}
-             <TouchableHighlight
+            <TouchableHighlight
               style={styles.removeButton}
               onPress={this.handleDeleteAll}
             >
@@ -243,7 +218,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20
   },
-headerContainer: {
+  headerContainer: {
     flex: 1,
     paddingBottom: 4,
     paddingRight: 10,
@@ -283,6 +258,7 @@ headerContainer: {
     color: "white",
     fontSize: 15
   },
+
   addButton: {
     padding: 8,
     backgroundColor: "#222e50",
@@ -295,7 +271,8 @@ headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between"
   },
- removeButton: {
+
+  removeButton: {
     backgroundColor: "#ffffff",
     width: "100%",
     padding: 10,

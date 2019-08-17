@@ -1,3 +1,4 @@
+//Menu.js
 // /components/Menu.js
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
@@ -26,17 +27,17 @@ export default class Menu extends Component {
               color="#09392e"
               style={styles.icon}
             />
-
             <Text
               style={styles.boardText}
               onPress={() => {
                 this.props.navigation.navigate("Todo");
-                // this.props.closeDrawer();
+                this.props.closeDrawer();
               }}
             >
               Todo App
             </Text>
           </View>
+
           <View style={styles.eachIcon}>
             <AntDesign
               name="like2"
@@ -47,7 +48,7 @@ export default class Menu extends Component {
             <Text
               onPress={() => {
                 this.props.navigation.navigate("Likes");
-                // this.props.closeDrawer();
+                this.props.closeDrawer();
               }}
               style={styles.boardText}
             >
@@ -65,7 +66,7 @@ export default class Menu extends Component {
             <Text
               onPress={() => {
                 this.props.navigation.navigate("Touchables");
-                // this.props.closeDrawer();
+                this.props.closeDrawer();
               }}
               style={styles.boardText}
             >
@@ -81,9 +82,7 @@ export default class Menu extends Component {
 const styles = StyleSheet.create({
   Menucontainer: {
     flex: 1
-    // marginTop: 50
   },
-
   board: {
     marginLeft: "auto",
     marginRight: "auto",
@@ -92,29 +91,24 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     height: 450,
     width: 350
-    // marginTop: -20
   },
-
   boardText: {
     fontSize: 20,
     marginLeft: 20,
     marginTop: -25,
     marginLeft: 70
   },
-
   icon: {
     marginTop: 10,
     marginLeft: 20
   },
-
   eachIcon: {
     borderBottomColor: "lightgrey",
     borderBottomWidth: 1,
     paddingBottom: 7
   },
-
   profileImage: {
-    height: 200,
-    width: 200
+    height: 250,
+    width: 300
   }
 });

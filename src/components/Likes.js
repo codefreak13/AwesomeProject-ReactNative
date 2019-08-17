@@ -1,6 +1,7 @@
 // Likes.js
 import React, { Component } from "react";
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+
 class Likes extends Component {
   state = {
     likes: 0

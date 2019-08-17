@@ -7,9 +7,6 @@ import {
   TouchableNativeFeedback,
   TouchableHighlight
 } from "react-native";
-import FlatListExample from "./FlatListExample";
-import Todo from "./Todo";
-import Likes from "./Flex";
 
 const Touchables = props => {
   onPress = () => {
